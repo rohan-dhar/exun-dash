@@ -1,0 +1,137 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	background-color: transparent;
+	-moz-appearance: none;
+	-webkit-appearance: none;	
+	appearance: none;
+	outline: none;
+	font-family: montserrat;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+b{
+	font-weight: 500;
+}
+
+body, html{
+	height: 100%;
+}
+
+body{
+	background-color: #fff;
+	overflow-x: hidden;
+	background-image: url("../img/wallpaper2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+button:focus, input:focus, textarea:focus, select:focus{
+	outline: none;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+header{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 75px;
+	width: 100%;
+	z-index: 2;
+}
+
+.ui-header-logo{
+	height: 45px;
+	width: auto;
+	position: relative;
+	top: 30px;
+	left: 40px;	
+}
+
+.ui-dis{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: rgba(84, 84, 84, 0.6);
+}
+
+.ui-page-head{
+	z-index: 3;
+	color: #fff;
+	position: relative;
+	width: 70%;
+	left: 15%;
+	padding-top: 100px;	
+	font-weight: 200;
+	font-size: 22pt;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+
+	
+}
+
+.ui-page-content{
+	position: relative;
+	margin-top: 35px;
+	padding-top: 35px;
+	padding-bottom: 35px;
+	background-color: #fff;
+	border-radius: 4px;
+	display: inline-block;
+}
+
+.ui-inp-text{
+	height: 38px;
+	width: 220px;
+	border: none;
+	border-bottom: 2px solid rgba(10,10,10,0.6);	
+	border-radius: 0px;
+	color: #222;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10pt;
+	font-weight: 500;
+}
+
+.ui-inp-text:focus{
+	background-color: rgba(10,10,10,0.06) !important;
+}
+.ui-inp-text:hover{
+	background-color: rgba(10,10,10,0.04);
+}
+
+select.ui-inp-text{
+	border: 2px solid rgba(10,10,10,0.6);		
+}
+
+.ui-page-content-head{
+	font-weight: 400;
+	color: #666;
+	font-size: 13pt;
+	margin-top: 50px;
+	text-transform: uppercase;
+	
+}
+
+.ui-btn{
+	border: none;
+	height: 38px;
+	width: 140px;
+	background-color: #48a0ff;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 9pt;
+	font-weight: 500;
+	text-transform: uppercase;
+}

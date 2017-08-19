@@ -1,0 +1,16 @@
+<?php 
+
+	define('APP', "Exun 2017 Registrations");
+	define('ROOT', substr(__DIR__, 0, strlen(__DIR__) - 4));
+	define("HTML_ROOT", "http://localhost/exunDash/");
+
+	define('ERROR_REP', true);
+	error_reporting(E_ALL);
+
+	define("DB_USER", "root");
+	define("DB_PASS", "root");	
+	define("DB_HOST", "127.0.0.1:8889");		
+	define('DB_NAME', 'exunReg');
+
+	require "autoload/db.php";	
+?>

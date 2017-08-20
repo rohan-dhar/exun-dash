@@ -13,6 +13,7 @@
 	text-align: center;
 	width: 70%;
 	left: 15%;
+	padding-top: 60px;
 }
 
 #reg-add-student-event, #reg-add-student-class{
@@ -52,4 +53,12 @@ th{
 #student-head, #event-head{
 	margin-top: 40px;
 	margin-bottom: -24px;
+}
+
+#reg-go{
+	height: 45px;
+	width: 200px;
+	margin-top: 50px;
+	background-color: #2ecc81;
+	margin-bottom: 20px;
 }

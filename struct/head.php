@@ -4,9 +4,15 @@
 			<title><?php echo $title; ?></title>
 	
 			<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href= <?php echo '"'.HTML_ROOT.'css/sweetalert.css"'; ?>>
 			<link rel="stylesheet" type="text/css" href= <?php echo '"'.HTML_ROOT.'css/ui.css"'; ?>>
 
 			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/jquery.js"'; ?>></script>
+			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/sweetalert.js"'; ?>></script>
+
+			<script type="text/javascript">
+				window.events = <?php echo json_encode($events); ?>
+			</script>
 			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/ui.js"'; ?>></script>
 
 <?php 

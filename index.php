@@ -29,19 +29,16 @@
 			<input type="text" class="ui-inp-text reg-inp" id="reg-add-student-name" placeholder="Student Name">				
 			<select class="ui-inp-text reg-inp" id="reg-add-student-event">							
 				<option selected disabled value="Student Event">Student Event</option>			
-				<option value="Name">Name</option>
-				<option value="Name">Name</option>
-				<option value="Name">Name</option>
-				<option value="Name">Name</option>
+				<?php 
+					foreach($events as $k => $e){				
+						echo "<option value='".$k."'>".$e["name"]."</option>";
+					}
+				?>
 			</select>
 			<br>
 			<input type="email" class="ui-inp-text reg-inp" id="reg-add-student-email" placeholder="Student Email">	
 			<select class="ui-inp-text reg-inp" id="reg-add-student-class">							
 				<option selected disabled value="Student Class">Student Class</option>			
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
 			</select>
 			<br>
 			<button class="ui-btn reg-btn" id="reg-add-student">Add Student</button>
@@ -55,70 +52,22 @@
 					<th>Class</th>
 					<th>Email</th>										
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>Rohan Dhar</td>
-					<td>Design</td>
-					<td>12</td>
-					<td>rohan.offi@gmail.com</td>										
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>Rohan Dhar</td>
-					<td>Design</td>
-					<td>12</td>
-					<td>rohan.offi@gmail.com</td>										
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>Rohan Dhar</td>
-					<td>Design</td>
-					<td>12</td>
-					<td>rohan.offi@gmail.com</td>										
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>Rohan Dhar</td>
-					<td>Design</td>
-					<td>12</td>
-					<td>rohan.offi@gmail.com</td>										
-				</tr>
 			</table>
 
 			<h2 class="ui-page-content-head" id="event-head">Events List</h2>
 			<table id="reg-students">
 				<tr>					
-					<th>Event 1</th>
-					<th>Event 2</th>
-					<th>Event 3</th>
-					<th>Event 4</th>										
-				</tr>
-				<tr>
-					<td>2/2</td>
-					<td>5/10</td>
-					<td>4/4</td>
-					<td>7/10</td>
-				</tr>
-				<tr>
-					<td>2/2</td>
-					<td>5/10</td>
-					<td>4/4</td>
-					<td>7/10</td>
-				</tr>
-				<tr>
-					<td>2/2</td>
-					<td>5/10</td>
-					<td>4/4</td>
-					<td>7/10</td>
-				</tr>
-				<tr>
-					<td>2/2</td>
-					<td>5/10</td>
-					<td>4/4</td>
-					<td>7/10</td>
+					<?php 
+						foreach ($events as $v) {
+							echo "<th>".$v["name"]."</th>";
+						}
+					?>
 				</tr>
 			</table>
 
+		<button class="ui-btn reg-btn" id="reg-go">Register</button>
+		
 		</div>
+
 	</body>
 </html>

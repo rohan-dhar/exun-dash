@@ -34,6 +34,42 @@ $(document).ready(function(){
 		return c;
 	}
 
+	function setTableData(){
+
+		var html1 = "<tr><th>S. No.</th><th>Name</th><th>Event</th><th>Class</th><th>Email</th></tr>", html2 = "", html3 = "";
+		var c = 0;
+
+		//Users table
+		for (i in students){
+			c++;
+			html1 += "<tr>";
+				html1 += "<td>"+c+"</td>";
+				html1 += "<td>"+students[i].name+"</td>";
+				html1 += "<td>"+events[students[i].event].name+"</td>";
+				html1 += "<td>"+students[i].std+"</td>";
+				html1 += "<td>"+students[i].email+"</td>";				
+			html1 += "</tr>";			
+		}
+
+		$("#reg-students").html(html1);		
+
+		//Events Table
+		html2 = "<tr>";
+		html3 = "<tr>";
+		for(i in events){
+			html2 += "<th>" + events[i].name + "</th>";	
+			html3 += "<td>" + getEventNum(i) + " / <span class='reg-events-total'>" + events[i].participantCount+"</span> </td>";
+		}
+		html2 += "</tr>";
+		html3 += "</tr>";
+
+		html2 += html3;
+
+		$("#reg-events").html(html2);
+
+	}
+
+
 	function addStutent(){
 
 		var name = $("#reg-add-student-name").val(), event = $("#reg-add-student-event").val(), std = $("#reg-add-student-class").val(), email = $("#reg-add-student-email").val();
@@ -100,20 +136,7 @@ $(document).ready(function(){
 			type: "success",
 		});
 
-		var html = "<tr><th>S. No.</th><th>Name</th><th>Event</th><th>Class</th><th>Email</th></tr>";
-		var c = 0;
-
-		for (i in students){
-			c++;
-			html += "<tr>";
-				html += "<td>"+c+"</td>";
-				html += "<td>"+students[i].name+"</td>";
-				html += "<td>"+events[students[i].event].name+"</td>";
-				html += "<td>"+students[i].std+"</td>";
-				html += "<td>"+students[i].email+"</td>";				
-			html += "</tr>";			
-		}
-		$("#reg-students").html(html);
+		setTableData();
 
 		$("#reg-add-student-name").val("");
 		$("#reg-add-student-event")[0].selectedIndex = 0;
@@ -126,4 +149,5 @@ $(document).ready(function(){
 	$("#reg-add-student-event").change(setClass);
 	$("#reg-add-student").click(addStutent);
 
+	setTableData();
 });

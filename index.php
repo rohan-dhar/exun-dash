@@ -44,25 +44,13 @@
 			<button class="ui-btn reg-btn" id="reg-add-student">Add Student</button>
 
 			<h2 class="ui-page-content-head" id="student-head">Students List</h2>
+
 			<table id="reg-students">
-				<tr>
-					<th>S. No.</th>
-					<th>Name</th>
-					<th>Event</th>
-					<th>Class</th>
-					<th>Email</th>										
-				</tr>
 			</table>
 
 			<h2 class="ui-page-content-head" id="event-head">Events List</h2>
-			<table id="reg-students">
-				<tr>					
-					<?php 
-						foreach ($events as $v) {
-							echo "<th>".$v["name"]."</th>";
-						}
-					?>
-				</tr>
+
+			<table id="reg-events">
 			</table>
 
 		<button class="ui-btn reg-btn" id="reg-go">Register</button>

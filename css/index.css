@@ -1,20 +1,21 @@
+.reg-content{
+	text-align: center;
+	width: 70%;	
+	padding-top: 60px;
+	min-width: 500px;
+}
 .reg-inp{
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-top: 12px;	
 	width: 35%;
+
 }
 
 #reg-teacher-num{
 	width: 73.8%;
 }
 
-.reg-content{
-	text-align: center;
-	width: 70%;
-	left: 15%;
-	padding-top: 60px;
-}
 
 #reg-add-student-event, #reg-add-student-class{
 	width: 38%;
@@ -26,7 +27,7 @@
 	margin-top: 25px;
 }
 
-#reg-students{
+#reg-students, #reg-events{
 	width: 75%;
 	position: relative;
 	left: 12.5%;
@@ -37,7 +38,7 @@
 
 th, td{
 	border: 1px solid #ddd;
-	height: 25px;
+	height: 30px;
 	font-size: 10pt;
 }
 
@@ -50,6 +51,20 @@ th{
 	font-weight: 500;
 	letter-spacing: 1px;
 }
+
+#reg-events th, #reg-events td{
+	height: 50px;
+}
+
+#reg-events td{
+	font-size: 12pt;
+}
+
+.reg-events-total{
+	color: #48a0ff;
+	font-weight: 600;
+}
+
 #student-head, #event-head{
 	margin-top: 40px;
 	margin-bottom: -24px;
@@ -62,3 +77,4 @@ th{
 	background-color: #2ecc81;
 	margin-bottom: 20px;
 }
+

@@ -29,6 +29,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	text-align: center;
 }
 
 button:focus, input:focus, textarea:focus, select:focus{
@@ -47,6 +48,7 @@ header{
 	height: 75px;
 	width: 100%;
 	z-index: 2;
+	text-align: left;	
 }
 
 .ui-header-logo{
@@ -76,9 +78,8 @@ header{
 	font-weight: 200;
 	font-size: 22pt;
 	letter-spacing: 1px;
-	text-transform: uppercase;
-
-	
+	text-transform: uppercase;	
+	text-align: left;
 }
 
 .ui-page-content{

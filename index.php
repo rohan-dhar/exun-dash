@@ -15,13 +15,6 @@
 	<body>
 		<?php require("struct/header.php"); ?>	
 		<h1 class="ui-page-head"> <b> Exun 2017</b><br>Registration</h1><br>
-		<div class="ui-page-desc">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur.
-		</div>
 		<div class="ui-page-content reg-content">
 			<input type="text" class="ui-inp-text reg-inp" id="reg-school-name" placeholder="School Name">	
 			<input type="text" class="ui-inp-text reg-inp" id="reg-principal-name" placeholder="Principal Name">	

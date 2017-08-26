@@ -149,5 +149,7 @@ $(document).ready(function(){
 	$("#reg-add-student-event").change(setClass);
 	$("#reg-add-student").click(addStutent);
 
+
+
 	setTableData();
 });

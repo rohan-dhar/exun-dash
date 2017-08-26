@@ -9,6 +9,7 @@
 
 			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/jquery.js"'; ?>></script>
 			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/sweetalert.js"'; ?>></script>
+			<script type="text/javascript" src=<?php echo '"'.HTML_ROOT.'js/velocity.js"'; ?>></script>
 
 			<script type="text/javascript">
 				window.events = <?php echo json_encode($events); ?>

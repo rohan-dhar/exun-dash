@@ -1,9 +1,10 @@
 *{
 	padding: 0px;
+	color: #eee;
 	margin: 0px;
 	background-color: transparent;
 	-moz-appearance: none;
-	-webkit-appearance: none;	
+	-webkit-appearance: none;
 	appearance: none;
 	outline: none;
 	font-family: montserrat;
@@ -29,7 +30,6 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	text-align: center;
 }
 
 button:focus, input:focus, textarea:focus, select:focus{
@@ -47,7 +47,7 @@ header{
 	left: 0px;
 	height: 75px;
 	width: 100%;
-	z-index: 2;
+	z-index: 5;
 	text-align: left;	
 }
 
@@ -55,7 +55,7 @@ header{
 	height: 45px;
 	width: auto;
 	position: relative;
-	top: 30px;
+	top: 15px;
 	left: 40px;	
 }
 
@@ -68,29 +68,43 @@ header{
 	background-color: rgba(84, 84, 84, 0.6);
 }
 
-.ui-page-head{
-	z-index: 3;
+.ui-page-head, .ui-page-desc{
+	position: fixed;
+	display: block;	
 	color: #fff;
-	position: relative;
-	width: 70%;
-	left: 15%;
-	padding-top: 100px;	
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	left: 14%;
+	top: 90px;
+	height: 80px;
 	font-weight: 200;
-	font-size: 22pt;
+	font-size: 38px;
 	letter-spacing: 1px;
-	text-transform: uppercase;	
+	text-transform: uppercase;
 	text-align: left;
+}
+
+.ui-page-desc{
+	font-size: 10pt;
+	text-transform: initial;
+	font-weight: 300;
+	width: 68%;
+	text-align: justify;
+	top: 195px;
 }
 
 .ui-page-content{
 	position: relative;
-	margin-top: 35px;
+	margin: auto;
+	margin-top: 300px;
+	margin-bottom: 80px;
 	padding-top: 35px;
 	padding-bottom: 35px;
 	background-color: #fff;
 	border-radius: 4px;
-	display: inline-block;
-	margin-bottom: 80px;
+	z-index: 2;
 }
 
 .ui-inp-text{

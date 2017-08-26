@@ -32,22 +32,25 @@
 	position: relative;
 	left: 12.5%;
 	border-collapse: collapse;
-	border: 1px solid #ccc;
+	border: none;
 	margin-top: 45px;
+	border-radius: 3px;
+	background-color: #404052;
 }
 
 th, td{
-	border: 1px solid #ddd;
-	height: 30px;
-	font-size: 10pt;
+	border: none;
+	height: 33px;
+	font-size: 9pt;
 }
 
 
 th{
-	background-color: #f2f2f2;
+	background-color: rgba(10,10,10,0.25);
 	height: 40px;
 	text-transform: uppercase;
-	font-size: 9pt;
+	font-size: 8pt;
+	color: #fff;
 	font-weight: 500;
 	letter-spacing: 1px;
 }
@@ -57,11 +60,11 @@ th{
 }
 
 #reg-events td{
-	font-size: 12pt;
+	font-size: 10pt;
 }
 
 .reg-events-total{
-	color: #48a0ff;
+	color: #55b78c;
 	font-weight: 600;
 }
 

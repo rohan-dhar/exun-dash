@@ -7,6 +7,15 @@ $(document).ready(function(){
 		this.email = email;
 	}
 
+	Student.prototype.getDataObject = function(first_argument) {
+		var obj = [];
+		obj["name"] = this.name;
+		obj["event"] = this.event;
+		obj["class"] = this.std;		
+		obj["email"] = this.std;				
+		return obj;		
+	};
+
 	var students = [];
 
 	function setClass(){
@@ -23,6 +32,23 @@ $(document).ready(function(){
 		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(email);
 	}		
+
+	function isPhone(num){
+		
+		var l = num.length;
+		if(l !== 10){
+			return false;
+		}
+
+		for(var i = 0; i < 10; i++){
+			if(num[i].charCodeAt(0) < 48 || num[i].charCodeAt(0) > 57){;
+				return false;
+			}
+		}
+
+		return true;
+
+	}
 
 	function getEventNum(e){
 		var c = 0;
@@ -57,8 +83,9 @@ $(document).ready(function(){
 		html2 = "<tr>";
 		html3 = "<tr>";
 		for(i in events){
+			var p = events[i].participantCount;
 			html2 += "<th>" + events[i].name + "</th>";	
-			html3 += "<td>" + getEventNum(i) + " / <span class='reg-events-total'>" + events[i].participantCount+"</span> </td>";
+			html3 += "<td>" + getEventNum(i) + " / <span class='reg-events-total'>" + p + "</span> </td>";			
 		}
 		html2 += "</tr>";
 		html3 += "</tr>";
@@ -146,10 +173,95 @@ $(document).ready(function(){
 		return true;
 	}
 
+
+	function getEventsRegistered(){
+		var ev = [], count = 0;
+		for(i in students){
+			var s = students[i];
+			if(ev[s.event]){
+				ev[s.event]++;
+			}else{
+				ev[s.event] = 1;
+			}
+		}
+		for(i in ev){
+			if(ev[i] == events[i].participantCount){
+				count++;
+			}
+		}
+		return count;
+	}
+
+
+	function register(){
+		var name = $("#reg-school-name").val().trim();
+		var principal = $("#reg-principal-name").val().trim();
+		var teacher = $("#reg-teacher-name").val().trim();
+		var teacherEmail = $("#reg-teacher-email").val().trim();
+		var teacherPhone = $("#reg-teacher-num").val().trim();
+
+		if(name.length < 1 || principal.length < 1 || teacher.length < 1 || teacherEmail.length < 1 || teacherPhone.length < 1){
+			swal({
+				title: "Whoops!",
+				text: "Please provide all the schools details to register!",
+				type: "error",
+			});				
+			return false;
+		}else if(!isEmail(teacherEmail)){
+			swal({
+				title: "Whoops!",
+				text: "Please enter a valid teacher's email to register!",
+				type: "error",
+			});				
+			return false;
+		}else if(!isPhone(teacherPhone)){			
+			swal({
+				title: "Whoops!",
+				html: "Please enter a valid <b style='color: #555;'>10 digit</b> teacher's phone number to register!",
+				type: "error",
+			});							
+			return false;
+		}else if(getEventsRegistered() < 3){
+			swal({
+				title: "Whoops!",
+				html: "Please add all the participants for at least <b style='color: #555;'>3 events</b> to register!",
+				type: "error",
+			});				
+			console.log(getEventsRegistered());
+			return false;
+		}
+
+
+
+	}
+
 	$("#reg-add-student-event").change(setClass);
 	$("#reg-add-student").click(addStutent);
+	$("#reg-go").click(register);
 
+	$(document).scroll(function(){
+		var n = 200, scroll = window.scrollY;
+		var scalePerScroll = 0.7 / n, opacityPerScroll = 1.2/n;
 
+		if(scroll < n){
+			$(".ui-page-head").stop().velocity({
+				"scaleX": (1 - scalePerScroll * scroll),
+				"scaleY": (1 - scalePerScroll * scroll),
+				"opacity": (1 - opacityPerScroll * scroll),
+			}, 40);
+			$(".ui-page-desc").stop().velocity({
+				"opacity": (1 - opacityPerScroll * scroll),
+				"scaleX": (1 - scalePerScroll * scroll),
+				"scaleY": (1 - scalePerScroll * scroll),
+			}, 40);
+		}else{
+			$(".ui-page-head").css({
+				"scaleX": (1 - scalePerScroll * n),
+				"scaleY": (1 - scalePerScroll * n),
+				"opacity": (1 - opacityPerScroll * n),
+			});			
+		}
+	});
 
 	setTableData();
 });

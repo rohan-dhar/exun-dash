@@ -1,6 +1,5 @@
 *{
 	padding: 0px;
-	color: #eee;
 	margin: 0px;
 	background-color: transparent;
 	-moz-appearance: none;
@@ -45,18 +44,20 @@ header{
 	position: fixed;
 	top: 0px;
 	left: 0px;
-	height: 75px;
+	height: 61px;
 	width: 100%;
 	z-index: 5;
-	text-align: left;	
+	text-align: left;
+	background-color: rgb(51, 120, 233);
+	box-shadow: 0px 2px 3px 0px rgba(10,10,10,0.16);
 }
 
 .ui-header-logo{
-	height: 45px;
+	height: 34px;
 	width: auto;
 	position: relative;
-	top: 15px;
-	left: 40px;	
+	top: 14px;
+	left: 40px;
 }
 
 .ui-dis{
@@ -65,19 +66,19 @@ header{
 	width: 100%;
 	left: 0px;
 	top: 0px;
-	background-color: rgba(84, 84, 84, 0.6);
+	background-color: rgba(19, 44, 86, 0.4);
 }
 
 .ui-page-head, .ui-page-desc{
 	position: fixed;
-	display: block;	
+	display: block;
 	color: #fff;
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	left: 14%;
-	top: 90px;
+	top: 105px;
 	height: 80px;
 	font-weight: 200;
 	font-size: 38px;

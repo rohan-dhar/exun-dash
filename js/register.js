@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	function Student(name, event, std, email){
 		this.name = name;
 		this.event = event;
@@ -8,11 +8,11 @@ $(document).ready(function(){
 	}
 
 	Student.prototype.getDataObject = function(first_argument) {
-		var obj = [];
+		var obj = {};
 		obj["name"] = this.name;
 		obj["event"] = this.event;
 		obj["class"] = this.std;		
-		obj["email"] = this.std;				
+		obj["email"] = this.email;				
 		return obj;		
 	};
 
@@ -27,32 +27,9 @@ $(document).ready(function(){
 		$("#reg-add-student-class").html(html);		
 	}
 
-
-	function isEmail(email) {
-		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return re.test(email);
-	}		
-
-	function isPhone(num){
-		
-		var l = num.length;
-		if(l !== 10){
-			return false;
-		}
-
-		for(var i = 0; i < 10; i++){
-			if(num[i].charCodeAt(0) < 48 || num[i].charCodeAt(0) > 57){;
-				return false;
-			}
-		}
-
-		return true;
-
-	}
-
 	function getEventNum(e){
 		var c = 0;
-		for(i in students){
+		for(var i in students){
 			if(students[i].event == e){
 				c++;
 			}
@@ -62,18 +39,19 @@ $(document).ready(function(){
 
 	function setTableData(){
 
-		var html1 = "<tr><th>S. No.</th><th>Name</th><th>Event</th><th>Class</th><th>Email</th></tr>", html2 = "", html3 = "";
+		var html1 = "<tr><th>S. No.</th><th>Name</th><th>Event</th><th>Class</th><th>Email</th><th></th></tr>", html2 = "", html3 = "";
 		var c = 0;
 
 		//Users table
 		for (i in students){
 			c++;
-			html1 += "<tr>";
+			html1 += "<tr id='student-"+i+"'>";
 				html1 += "<td>"+c+"</td>";
-				html1 += "<td>"+students[i].name+"</td>";
+				html1 += "<td>"+$("<div>").text(students[i].name).html()+"</td>";
 				html1 += "<td>"+events[students[i].event].name+"</td>";
 				html1 += "<td>"+students[i].std+"</td>";
-				html1 += "<td>"+students[i].email+"</td>";				
+				html1 += "<td>"+$("<div>").text(students[i].email).html()+"</td>";			
+				html1 += "<td><img src='img/close.png' class='remove-student'></td>";								
 			html1 += "</tr>";			
 		}
 
@@ -84,8 +62,14 @@ $(document).ready(function(){
 		html3 = "<tr>";
 		for(i in events){
 			var p = events[i].participantCount;
-			html2 += "<th>" + events[i].name + "</th>";	
-			html3 += "<td>" + getEventNum(i) + " / <span class='reg-events-total'>" + p + "</span> </td>";			
+			var name = events[i].name;
+			var n = getEventNum(i);
+			html2 += "<th>" + name + "</th>";	
+			if(p == n){
+				html3 += "<td><span class='reg-events-complete'>"+ n +" / "+ p + "</span> </td>";
+			}else{
+				html3 += "<td>" + n + " / <span class='reg-events-total'>" + p + "</span> </td>";			
+			}
 		}
 		html2 += "</tr>";
 		html3 += "</tr>";
@@ -226,11 +210,70 @@ $(document).ready(function(){
 				title: "Whoops!",
 				html: "Please add all the participants for at least <b style='color: #555;'>3 events</b> to register!",
 				type: "error",
-			});				
-			console.log(getEventsRegistered());
+			});
 			return false;
 		}
 
+		var participants = [];
+
+		for(i in students){
+			participants.push(students[i].getDataObject());
+		}
+
+		$.ajax({
+			url: "api/registerSchool.php",
+			type: "post",
+			data: {
+				"name": name,
+				"teacher": teacher,
+				"principal": principal,
+				"teacherPhone": teacherPhone,				
+				"teacherEmail": teacherEmail,								
+				"participants": JSON.stringify(participants),
+			},
+			dataType: "json",
+			beforeSend: function(){
+				swal({
+					title: "Registering...",
+					text: "Please wait while we register you...",
+				});
+				swal.showLoading();				
+			},
+			success: function(d){					
+				if(d[0]){
+					swal({
+						title: "Success!",
+						html: "You have been registered successfully. You can click <a href='login.php'>here</a> to login and access your dashboard.",
+						type: "success",
+					}).then(function(){
+						location.reload();
+					});
+				}else if(d[1] == "ALREADY_REGISTERED"){
+					swal({
+						title: "Whoops!",
+						html: "You have already registered for Exun 2016. You can click <a href='login.php'>here</a> to login and access your dashboard.",
+						type: "error",
+					}).then(function(){
+						location.reload();
+					});
+				}else{
+					swal({
+						title: "Whoops!",
+						html: "An error occured! Refresh and try to refresh again.",
+						type: "error",
+					}).then(function(){
+						location.reload();
+					});					
+				}
+			},
+			error: function(){
+				swal({
+					title: "Whoops!",
+					html: "You are not connected to the internet. Could not register you.",
+					type: "error",
+				});
+			}
+		});
 
 
 	}
@@ -238,30 +281,13 @@ $(document).ready(function(){
 	$("#reg-add-student-event").change(setClass);
 	$("#reg-add-student").click(addStutent);
 	$("#reg-go").click(register);
-
-	$(document).scroll(function(){
-		var n = 200, scroll = window.scrollY;
-		var scalePerScroll = 0.7 / n, opacityPerScroll = 1.2/n;
-
-		if(scroll < n){
-			$(".ui-page-head").stop().velocity({
-				"scaleX": (1 - scalePerScroll * scroll),
-				"scaleY": (1 - scalePerScroll * scroll),
-				"opacity": (1 - opacityPerScroll * scroll),
-			}, 40);
-			$(".ui-page-desc").stop().velocity({
-				"opacity": (1 - opacityPerScroll * scroll),
-				"scaleX": (1 - scalePerScroll * scroll),
-				"scaleY": (1 - scalePerScroll * scroll),
-			}, 40);
-		}else{
-			$(".ui-page-head").css({
-				"scaleX": (1 - scalePerScroll * n),
-				"scaleY": (1 - scalePerScroll * n),
-				"opacity": (1 - opacityPerScroll * n),
-			});			
-		}
+	$("#reg-students").on("click", ".remove-student", function(){
+		var n = $(this).parent().parent().attr("id").substr(8);
+		students.splice(n, 1);
+		setTableData();
 	});
+
+
 
 	setTableData();
 });

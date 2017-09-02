@@ -2,6 +2,8 @@
 
 	class School{
 
+		private $id;
+
 		public function register($school, $participants){
 
 			$events = $GLOBALS["events"];
@@ -9,10 +11,10 @@
 
 			//Unwraping school data
 			$name = @trim($school["name"]);
-			$teacher = @trim($school["teacherName"]);
+			$teacher = @trim($school["teacher"]);
 			$teacherEmail = @trim($school["teacherEmail"]);
 			$teacherPhone = @trim($school["teacherPhone"]);
-			$principal = @trim($school["principalName"]);
+			$principal = @trim($school["principal"]);
 
 			//Emptyness Check
 			if(strlen($name) < 1 || strlen($teacher) < 1 || strlen($teacherPhone) < 1 || strlen($teacherEmail) < 1 || strlen($principal) < 1){
@@ -35,13 +37,13 @@
 			//Participant Data Validation
 			$registeredEvents = [];
 			foreach ($participants as $p){
-				
+								
 				//Unwrapping Participant Data
-				$pName = @$p["name"];
-				$pEvent = @$p["event"];
-				$pClass = @$p["class"];
-				$pEmail = @$p["email"];
-				
+				$pName = @$p->name;
+				$pEvent = @$p->event;
+				$pClass = @$p->class;
+				$pEmail = @$p->email;
+
 				//Emptyness Check
 				if(strlen($pName) < 1 || strlen($pEmail) < 1 || strlen($pEvent) < 1 || strlen($pClass) < 1){
 					return [false, "MISSING_PARTICIPANT_DATA"];
@@ -51,7 +53,7 @@
 				if( (!@$events[$pEvent]["participantCount"]) || (!filter_var($pEmail, FILTER_VALIDATE_EMAIL)) || ((int)$pClass < @$events[$pEvent]["classes"][0] ||  (int)@$pClass > $events[$pEvent]["classes"][1]) ){
 					return [false, "INC_PARTICIPANT_DATA"];
 				}
-				if($registeredEvents[$pEvent]){
+				if(@$registeredEvents[$pEvent]){
 					$registeredEvents[$pEvent]++;
 				}else{
 					$registeredEvents[$pEvent] = 1;					
@@ -84,12 +86,12 @@
 				$i = 1;
 
 				foreach($participants as $p){				
-					$pName = @$p["name"];
-					$pEvent = @$p["event"];
-					$pClass = @$p["class"];
-					$pEmail = @$p["email"];
+					$pName = @$p->name;
+					$pEvent = @$p->event;
+					$pClass = @$p->class;
+					$pEmail = @$p->email;
 
-					$pSql .= " (".$schoolId.", :name".$i.", :event".$i.", :class".$i.", :email".$i."),";
+					$pSql .= " (".$schoolId.", :name".$i.", :email".$i.", :event".$i.", :class".$i."),";
 					$pSqlVars[":name".$i] = $pName;
 					$pSqlVars[":event".$i] = $pEvent;
 					$pSqlVars[":class".$i] = $pClass;
@@ -103,8 +105,87 @@
 				$qry->execute($pSqlVars);
 			
 			}			
-			return [true];
+			return [true, $schoolId];
 		}
+
+		public function startSess($login = false){
+			session_start();
+			if($login){
+				session_regenerate_id();
+			}
+		}
+
+		private function setSess($id){			
+			$_SESSION["loggedIn"] = true;
+			$_SESSION["schoolId"] = $id;
+			$this->id = $id;
+		}
+
+		public function authSess(){
+			
+			$db = $GLOBALS["db"];
+			
+			if(@!$_SESSION["loggedIn"] || !@$_SESSION["schoolId"]){
+				return [false, "NO_SESS"];
+			}
+
+			$id = $_SESSION["schoolId"];
+
+			$qry = $db->prepare("SELECT * FROM schools WHERE id = :id LIMIT 1");
+			$qry->execute([":id" => $id]);
+			$res = $qry->fetch(PDO::FETCH_ASSOC);
+
+			if(!@$res["id"]){
+				return [false, "MISSING_DB"];
+			}
+
+			$this->id = $res["id"];
+
+			return [true, $res];
+
+		}
+
+		public function getParticipants($id = false){			
+
+			$db = $GLOBALS["db"];
+
+			if($id === false){
+				$id = $this->id;
+			}
+
+			$qry = $db->prepare("SELECT id, name, event, email, class FROM participants WHERE schoolId = :id");
+			$qry->execute([":id" => $id]);
+			$res = $qry->fetchAll(PDO::FETCH_ASSOC);
+			return $res;
+		}
+
+		public function login($email, $pass){
+
+			$email = trim($email);
+			$pass = trim($pass);			
+			$db = $GLOBALS["db"];
+
+			if(strlen($email) < 1 || strlen($pass) < 1){
+				return [false, "MISSING_PARAM"];
+			}
+
+			$qry = $db->prepare("SELECT * FROM schools WHERE teacherEmail = :email LIMIT 1");
+			$qry->execute([":email" => $email]);
+			$res = $qry->fetch(PDO::FETCH_ASSOC);
+
+			if(@!$res[id]){
+				return [false, "INC_EMAIL"];
+			}
+
+			if($pass === $res["password"]){
+				$this->setSess($res["id"]);
+				return [true];	
+			}else{
+				return [false, "INC_PASS"];	
+			}
+
+		}		
+
 	}
 
 ?>

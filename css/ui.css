@@ -10,8 +10,9 @@
 }
 
 a{
-	color: inherit;
+	color: #498eff;
 	text-decoration: none;
+	font-weight: 400;
 }
 
 b{
@@ -19,7 +20,6 @@ b{
 }
 
 body, html{
-	height: 100%;
 }
 
 body{
@@ -35,10 +35,6 @@ button:focus, input:focus, textarea:focus, select:focus{
 	outline: none;
 }
 
-a{
-	color: inherit;
-	text-decoration: none;
-}
 
 header{
 	position: fixed;
@@ -66,7 +62,7 @@ header{
 	width: 100%;
 	left: 0px;
 	top: 0px;
-	background-color: rgba(19, 44, 86, 0.4);
+	background-color: rgba(26, 34, 47, 0.4);
 }
 
 .ui-page-head, .ui-page-desc{
@@ -78,13 +74,17 @@ header{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	left: 14%;
-	top: 105px;
+	top: 115px;
 	height: 80px;
 	font-weight: 200;
-	font-size: 38px;
+	font-size: 40px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	text-align: left;
+}
+
+.ui-page-head b{
+	font-size: 37px;
 }
 
 .ui-page-desc{
@@ -99,14 +99,18 @@ header{
 .ui-page-content{
 	position: relative;
 	margin: auto;
-	margin-top: 240px;
+	margin-top: 260px;
+	width: 70%;
+	min-width: 500px;	
 	margin-bottom: 80px;
-	padding-top: 35px;
+	padding-top: 60px;
 	padding-bottom: 35px;
 	background-color: #fff;
+	text-align: center;
 	border-radius: 4px;
 	z-index: 2;
 }
+
 
 .ui-inp-text{
 	height: 38px;
@@ -140,7 +144,7 @@ select.ui-inp-text{
 	font-weight: 400;
 	color: #666;
 	font-size: 13pt;
-	margin-top: 50px;
+	margin-top: 57px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
 }
@@ -156,4 +160,33 @@ select.ui-inp-text{
 	font-weight: 500;
 	text-transform: uppercase;
 	cursor: pointer;
+}
+
+table{
+	position: relative;	
+	margin: auto;
+	width: 75%;
+	border-collapse: collapse;
+	border: none;
+	margin-top: 45px;
+	border-radius: 4px;
+	background-color: #eee;
+	box-shadow: 0px 2px 2px 0px rgba(10,10,10,0.16);
+}
+
+th, td{
+	border: none;
+	height: 33px;
+	font-size: 9pt;
+	color: #555;
+}
+
+th{
+	background-color: rgba(10,10,10,0.1);
+	height: 40px;
+	text-transform: uppercase;
+	font-size: 8pt;
+	color: #525252;
+	font-weight: 500;
+	letter-spacing: 1px;
 }

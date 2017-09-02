@@ -1,21 +1,13 @@
-.reg-content{
-	text-align: center;
-	width: 70%;	
-	padding-top: 60px;
-	min-width: 500px;
-}
 .reg-inp{
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-top: 12px;	
 	width: 35%;
-
 }
 
 #reg-teacher-num{
 	width: 73.8%;
 }
-
 
 #reg-add-student-event, #reg-add-student-class{
 	width: 38%;
@@ -27,35 +19,24 @@
 	margin-top: 25px;
 }
 
-#reg-students, #reg-events{
-	width: 75%;
+.remove-student{
+	height: 22px;
+	width: 22px;
 	position: relative;
-	left: 12.5%;
-	border-collapse: collapse;
-	border: none;
-	margin-top: 45px;
-	border-radius: 4px;
-	background-color: #eee;
-	box-shadow: 0px 2px 2px 0px rgba(10,10,10,0.16);
+	top: 2px;
+	cursor: pointer;
+	-webkit-transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s;
+	-ms-transition: background-color 0.3s;
+	transition: background-color 0.3s;
+	padding: 2px;
+	border-radius: 100%;
 }
 
-th, td{
-	border: none;
-	height: 33px;
-	font-size: 9pt;
-	color: #555;
+.remove-student:hover{
+	background-color: rgba(10,10,10,0.06);
 }
 
-
-th{
-	background-color: rgba(10,10,10,0.1);
-	height: 40px;
-	text-transform: uppercase;
-	font-size: 8pt;
-	color: #525252;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
 
 #reg-events th, #reg-events td{
 	height: 50px;
@@ -70,6 +51,14 @@ th{
 	font-weight: 600;
 }
 
+.reg-events-complete {
+    color: #fff;
+    background-color: #2ecc81;
+    padding: 6px;
+    border-radius: 4px;
+
+}
+
 #student-head, #event-head{
 	margin-top: 40px;
 	margin-bottom: -24px;
@@ -81,3 +70,4 @@ th{
 	margin-top: 50px;
 	background-color: #2ecc81;
 	margin-bottom: 20px;
+}

@@ -1,0 +1,72 @@
+#school-name{
+	font-size: 24pt;
+	color: #333;
+	font-weight: 300;
+	margin-top: 15px;
+	margin: 5px;
+}
+
+#school-name b{
+	font-weight: 600;
+}
+
+.add-inp{
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 14px;
+	width: 35%;
+}
+
+#add-participant-event, #add-participant-class{
+	width: 38%;
+	position: relative;
+	top: 2px;
+}
+
+#add-participant-go{
+	margin-top: 32px;
+}
+
+.remove-participant{
+	height: 22px;
+	width: 22px;
+	position: relative;
+	top: 2px;
+	cursor: pointer;
+	-webkit-transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s;
+	-ms-transition: background-color 0.3s;
+	transition: background-color 0.3s;
+	padding: 2px;
+	border-radius: 100%;
+}
+
+.remove-participant:hover{
+	background-color: rgba(10,10,10,0.06);
+}
+
+#events th, #events td{
+	height: 50px;
+}
+
+#events td{
+	font-size: 10pt;
+}
+
+.events-total{
+	color: #55b78c;
+	font-weight: 600;
+}
+
+.events-complete {
+    color: #fff;
+    background-color: #2ecc81;
+    padding: 6px;
+    border-radius: 4px;
+
+}
+
+#participant-head, #event-head{
+	margin-top: 40px;
+	margin-bottom: -24px;
+}

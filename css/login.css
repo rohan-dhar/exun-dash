@@ -1,0 +1,54 @@
+header{
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.ui-header-logo{
+	top: 25px;
+}
+
+.login-box{
+	text-align: center;
+	height: 308px;
+	width: 280px;
+	border-radius: 4px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	margin: auto;
+	background-color: #fff;
+}
+
+.login-head{
+	font-weight: 500;
+	text-transform: uppercase;
+	margin-top: 45px;
+	font-size: 14pt;
+	letter-spacing: 2px;
+	color: #444;
+}
+
+.login-inp{
+	position: relative;
+	top: 26px;
+}
+
+input.login-inp{
+	margin-top: 8px;
+	width: 65%;
+	border-bottom: none;
+	height: 38px;
+	color: #333;
+	border-radius: 4px;
+	font-size: 9pt;
+	font-weight: 500;
+	background-color: #f2f2f2;
+}
+
+button.login-inp{
+	margin-top: 30px;
+	width: 100px;
+	height: 37px;
+}

@@ -5,11 +5,13 @@
 
 	$s = new School;
 	$s->startSess();
+	$loggedIn = false;
 
 	if($s->authSess()[0]){
 		header("Location: dashboard.php");
 		exit();
 	}
+
 
 	$styles = ["css/login.css"];
 	$scripts = ["js/login.js"];

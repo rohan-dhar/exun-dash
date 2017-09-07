@@ -153,7 +153,7 @@
 				$id = $this->id;
 			}
 
-			$qry = $db->prepare("SELECT id, name, event, email, class FROM participants WHERE schoolId = :id");
+			$qry = $db->prepare("SELECT id, name, event, email, class FROM participants WHERE schoolId = :id ORDER BY event");
 			$qry->execute([":id" => $id]);
 			$res = $qry->fetchAll(PDO::FETCH_ASSOC);
 			return $res;
@@ -183,8 +183,69 @@
 			}else{
 				return [false, "INC_PASS"];	
 			}
-
 		}		
+
+		public function removeParticipant($pid, $sid = false){
+			if(!$sid){
+				$sid = $this->id;
+			}
+			$db = $GLOBALS["db"];
+
+			if(strlen($pid) < 1){
+				return [false, "MISSING_PARAM"];
+			}
+
+			$pid = (int)$pid;			
+
+			$qry = $db->prepare("DELETE FROM participants WHERE id = :pid AND schoolId = :sid");
+			$qry->execute([":pid" => $pid, ":sid" => $sid]);
+
+			if($qry->rowCount()){
+				return [true, $this->getParticipants()];
+			}else{
+				return [false, "NO_PART"];
+			}
+		}
+
+		public function addParticipant($name, $email, $class, $evt, $sid = false){
+			if(!$sid){
+				$sid = $this->id;
+			}
+			$db = $GLOBALS["db"];
+			$events = $GLOBALS["events"];
+
+			if(strlen($name) < 1 || strlen($email) < 1 || strlen($class) < 1 || strlen($evt) < 1){
+				return [false, "MISSING_PARAM"];
+			}		
+
+
+			$qry = $db->prepare("SELECT COUNT(*) FROM participants WHERE schoolId = :sid AND event = :evt");
+			$qry->execute([":sid" => $sid, ":evt" => $evt]);
+			$c = $qry->fetch(PDO::FETCH_ASSOC)["COUNT(*)"];
+			$c = (int)$c;
+
+			// return $c;
+
+			if( (!@$events[$evt]["participantCount"]) || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ((int)$class < @$events[$evt]["classes"][0] ||  (int)$class > $events[$evt]["classes"][1])){
+				return [false, "INC_PARTICIPANT_DATA"];				
+			}
+
+			if($c >= @$events[$evt]["participantCount"]){
+				return [false, "FULL_EVT_PARTICIPATION"];
+			}
+
+			$qry = $db->prepare("INSERT INTO participants (name, email, class, event, schoolId) VALUES (:name, :email, :class, :evt, ".$this->id.")");
+			$qry->execute([
+				":name" => $name,
+				":email" => $email,
+				":class" => $class,
+				":evt" => $evt,				
+			]);
+
+			return [true, $this->getParticipants()];
+
+		}
+
 
 	}
 

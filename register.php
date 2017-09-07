@@ -5,11 +5,13 @@
 
 	$s = new School;
 	$s->startSess();
+	$loggedIn = false;
 
 	if($s->authSess()[0]){
 		header("Location: dashboard.php");
 		exit();
 	}
+
 
 	$styles = ["css/register.css"];
 	$scripts = ["js/register.js"];
@@ -35,20 +37,31 @@
 
 			<h2 class="ui-page-content-head">Add Students</h2>
 
-			<input type="text" class="ui-inp-text reg-inp" id="reg-add-student-name" placeholder="Student Name">				
-			<select class="ui-inp-text reg-inp" id="reg-add-student-event">							
-				<option selected disabled value="Student Event">Student Event</option>			
-				<?php 
-					foreach($events as $k => $e){				
-						echo "<option value='".$k."'>".$e["name"]."</option>";
-					}
-				?>
-			</select>
-			<br>
+			<input type="text" class="ui-inp-text reg-inp" id="reg-add-student-name" placeholder="Student Name">		
 			<input type="email" class="ui-inp-text reg-inp" id="reg-add-student-email" placeholder="Student Email">	
+			<br>
 			<select class="ui-inp-text reg-inp" id="reg-add-student-class">							
 				<option selected disabled value="Student Class">Student Class</option>			
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>				
+				<option value="12">12</option>				
 			</select>
+			<table id="reg-add-student-event-table">
+				<?php 
+					$html1 = "<tr>"; $html2 = "<tr>";
+					foreach ($events as $k => $v) {
+						$html1 .= "<th>".$v["name"]."</th>";
+						$html2 .= "<td> <input type='checkbox' class='reg-add-student-event' value='".$k."' id='reg-add-student-event-".$k."' disabled>";
+					}
+					$html1.="</tr>";$html2.="</tr>";
+					echo $html1.$html2;
+				?>				
+			</table>
+
 			<br>
 			<button class="ui-btn reg-btn" id="reg-add-student">Add Student</button>
 

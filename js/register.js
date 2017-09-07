@@ -16,15 +16,43 @@ $(document).ready(function(){
 		return obj;		
 	};
 
-	var students = [];
+	window.students = [];
 
-	function setClass(){
-		var e = $("#reg-add-student-event").val();
-		var html = "<option selected disabled value='Student Class'>Student Class</option>";
-		for(var i = events[e].classes[0]; i <= events[e].classes[1]; i++){
-			html += "<option value='" + i + "'>" + i + "</option>";
+	function addStudentToList(name, event, std, email){
+		for(var i = 0; i < event.length; i++){
+			students.push(new Student(name, event[i], std, email));
 		}
-		$("#reg-add-student-class").html(html);		
+	}
+
+	function setEvent(){
+		var std = Number($("#reg-add-student-class").val());
+		$(".reg-add-student-event").prop("checked", false);
+		for(i in events){
+			var e = events[i];
+			if(e.classes[0] <= std && e.classes[1] >= std){
+				$("#reg-add-student-event-"+i).prop("disabled", false);
+			}else{
+				$("#reg-add-student-event-"+i).prop("disabled", true);				
+			}
+		}
+	}
+
+
+	function getEvents(std){
+		
+		var ret = [];
+
+		for(i in events){
+			if( $("#reg-add-student-event-"+i).prop("checked") ){
+				if(events[i].classes[0] <= std && events[i].classes[1] >= std){
+					ret.push(i);	
+				}else{
+					return false;
+				}
+			}
+		}
+
+		return ret;
 	}
 
 	function getEventNum(e){
@@ -83,23 +111,17 @@ $(document).ready(function(){
 
 	function addStutent(){
 
-		var name = $("#reg-add-student-name").val(), event = $("#reg-add-student-event").val(), std = $("#reg-add-student-class").val(), email = $("#reg-add-student-email").val();
+		var name = $("#reg-add-student-name").val(), std = $("#reg-add-student-class").val(), email = $("#reg-add-student-email").val();
 
-		if(!event){
-			event = "";
-		}
 		if(!std){
 			std = "";
 		}
 
 		name = name.trim();
 		email = email.trim();
-		event = event.trim();
-		std = std.trim();
+		std = Number(std.trim());
 
-		var e = events[event];
-
-		if(name == "" || event == "" || std == "" || email == ""){
+		if(name == "" || std == "" || email == ""){
 			swal({
 				title: "The student was not added!",
 				text: "Student's name, event, class and email, all are not provided.",
@@ -115,32 +137,36 @@ $(document).ready(function(){
 			});				
 			return false;
 		}
-		if(!e){			
+		if(isNaN(std)){
 			swal({
 				title: "The student was not added!",
-				text: "Invalid event selected. Refresh the page and try again.",
+				text: "Invalid student class provided.",
 				type: "error",
 			});				
 			return false;
 		}		
-		if(std < e.classes[0] || std >> e.classes[1]){			
+
+		var event = getEvents(std);
+
+		if(event.length < 1){
 			swal({
 				title: "The student was not added!",
-				text: "Invalid class selected. Refresh the page and try again.",
+				text: "Please select at least one event to add the student.",
 				type: "error",
 			});				
-			return false;
-		}		
-		if(getEventNum(event) >= e.participantCount){
+			return false;			
+		}
+		if(!event){
 			swal({
 				title: "The student was not added!",
-				text: "Maximum students for "+e.name+" have been added. To add this student, remove a student from "+e.name+".",
+				text: "Invalid student events provided. Refresh and try again.",
 				type: "error",
 			});				
-			return false;
+			return false;			
 		}
 
-		students.push(new Student(name, event, std, email));
+
+		addStudentToList(name, event, std, email);
 		swal({
 			title: "Student Added!",
 			text: "The student was added successfully!",
@@ -150,8 +176,8 @@ $(document).ready(function(){
 		setTableData();
 
 		$("#reg-add-student-name").val("");
-		$("#reg-add-student-event")[0].selectedIndex = 0;
-		$("#reg-add-student-class").html("<option selected disabled value='Student Class'>Student Class</option>");
+		$("#reg-add-student-class")[0].selectedIndex = 0;
+		setEvent();
 		$("#reg-add-student-email").val("");
 
 		return true;
@@ -259,7 +285,7 @@ $(document).ready(function(){
 				}else{
 					swal({
 						title: "Whoops!",
-						html: "An error occured! Refresh and try to refresh again.",
+						html: "An error occured! Refresh and try again.",
 						type: "error",
 					}).then(function(){
 						location.reload();
@@ -278,7 +304,7 @@ $(document).ready(function(){
 
 	}
 
-	$("#reg-add-student-event").change(setClass);
+	$("#reg-add-student-class").change(setEvent);
 	$("#reg-add-student").click(addStutent);
 	$("#reg-go").click(register);
 	$("#reg-students").on("click", ".remove-student", function(){

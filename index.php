@@ -5,6 +5,7 @@
 	$styles = ["css/index.css"];
 	$scripts = ["js/index.js"];
 	$title = APP;
+	$loggedIn = false;
 
 ?>
 <!DOCTYPE html>

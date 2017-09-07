@@ -9,10 +9,24 @@
 	width: 73.8%;
 }
 
-#reg-add-student-event, #reg-add-student-class{
-	width: 38%;
+#reg-add-student-name, #reg-add-student-email{
+	width: 32%;
 	position: relative;
 	top: 2px;
+}
+
+#reg-add-student-class{
+	width: 64%;
+	padding-left: 15px;
+	padding-right: 35px;
+	height: 34px;
+	box-sizing: initial;
+}
+
+.reg-add-student-event{
+	position: relative;
+	-webkit-appearance: checkbox;	
+	zoom: 1.2;
 }
 
 #reg-add-student{

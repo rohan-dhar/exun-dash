@@ -27,7 +27,7 @@ $(document).ready(function(){
 		//Users table
 		for (i in part){
 			c++;
-			html1 += "<tr id='participant-"+i+"'>";
+			html1 += "<tr id='participant-"+part[i].id+"'>";
 				html1 += "<td>"+c+"</td>";
 				html1 += "<td>"+$("<div>").text(part[i].name).html()+"</td>";
 				html1 += "<td>"+events[part[i].event].name+"</td>";
@@ -57,6 +57,9 @@ $(document).ready(function(){
 		html2 += html3;
 		$("#events").html(html2);
 	}
+
+
+
 
 	function addParticipant(){
 
@@ -117,11 +120,136 @@ $(document).ready(function(){
 			return false;
 		}
 
+		$.ajax({
+			url: "api/addParticipant.php",
+			type: "post",
+			data: {
+				"name": name,
+				"email": email,
+				"event": event,
+				"class": std,				
+			},
+			dataType: "json",
+			beforeSend: function(){
+				swal({
+					title: "Adding Participant...",
+					text: "Please wait while we add the participant...",
+				});
+				swal.showLoading();				
+			},
+			success: function(d){					
+				if(d[0]){
+					swal({
+						title: "Success!",
+						html: "The participant was added successfully.",
+						type: "success",
+					});
+					part = d[1];
+					setTableData();
+				}else if(d[1] == "LOGOUT"){
+					swal({
+						title: "Whoops!",
+						html: "You have been logged out. Login and try again.",
+						type: "error",
+					}).then(function(){
+						window.location = "index.php";
+					});					
+				}else{
+					swal({
+						title: "Whoops!",
+						html: "An error occured! Refresh and try again.",
+						type: "error",
+					}).then(function(){
+						location.reload();
+					});										
+				}
+			},
+			error: function(){
+				swal({
+					title: "Whoops!",
+					html: "You are not connected to the internet. Could not add the participant.",
+					type: "error",
+				});				
+			}
+		});
 	}
 
+
+	function removeParticipant(id){
+		$.ajax({
+			url: "api/removeParticipant.php",
+			type: "post",
+			data: {
+				"id": id,
+			},
+			dataType: "json",
+			beforeSend: function(){
+				swal({
+					title: "Remove Participant...",
+					text: "Please wait while we remove the participant...",
+				});
+				swal.showLoading();				
+			},
+			success: function(d){					
+				if(d[0]){
+					swal({
+						title: "Success!",
+						html: "The participant was removed successfully.",
+						type: "success",
+					});
+					part = d[1];
+					setTableData();
+				}else if(d[1] == "LOGOUT"){
+					swal({
+						title: "Whoops!",
+						html: "You have been logged out. Login and try again.",
+						type: "error",
+					}).then(function(){
+						window.location = "index.php";
+					});					
+				}else{
+					swal({
+						title: "Whoops!",
+						html: "An error occured! Refresh and try again.",
+						type: "error",
+					}).then(function(){
+						// location.reload();
+					});										
+				}
+			},
+			error: function(){
+				swal({
+					title: "Whoops!",
+					html: "You are not connected to the internet. Could not remove the participant.",
+					type: "error",
+				});				
+			}
+		});
+	}
 
 	setTableData();
 	$("#add-participant-event").change(setClass);
 	$("#add-participant-go").click(addParticipant);	
+	$("#participants").on("click", ".remove-participant", function(e){
+
+		var id = $(this).parent().parent().attr("id").substr(12);
+		
+		var name, evt;
+		for(i in part){
+			if(part[i].id == id){
+				name = part[i].name;
+				evt = events[part[i].event].name;				
+			}
+		}
+
+		swal({
+			title: "Are you sure you want to remove the participant!",
+			html: "Are you sure that you want to remove <b>" + name + "</b> from <b>" + evt + "</b>?",
+			type: "warning",
+			showCancelButton: true,
+		}).then(function(){
+			removeParticipant(id);
+		});
+	});
 
 });

@@ -28,4 +28,5 @@
 		$html .= "\t\t\t".'<script type="text/javascript" src="'.HTML_ROOT.$v.'"></script>'."\n";
 	}
 	echo $html;
+	$html = "";
 ?>

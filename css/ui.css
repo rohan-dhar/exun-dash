@@ -1,7 +1,7 @@
 *{
 	padding: 0px;
 	margin: 0px;
-	background-color: transparent;
+	/*background-color: transparent;*/
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
@@ -25,7 +25,7 @@ body, html{
 body{
 	background-color: #fff;
 	overflow-x: hidden;
-	background-image: url("../img/wallpaper2.jpg");
+	background-image: url("../img/wallpaper4.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -36,24 +36,61 @@ button:focus, input:focus, textarea:focus, select:focus{
 }
 
 
-header{
-	position: fixed;
+.ui-header{
+	position: relative;
 	top: 0px;
 	left: 0px;
-	height: 61px;
+	height: 60px;
 	width: 100%;
 	z-index: 5;
-	text-align: left;
-	background-color: rgb(51, 120, 233);
-	box-shadow: 0px 2px 3px 0px rgba(10,10,10,0.16);
+	text-align: right;
 }
 
 .ui-header-logo{
 	height: 34px;
 	width: auto;
-	position: relative;
-	top: 14px;
+	position: absolute;
+	top: 22px;
 	left: 40px;
+}
+
+.ui-header-menu, .ui-header-logout{
+	position: relative;
+	height: 60px;
+	line-height: 60px;	
+	text-align: center;
+	display: inline-block;
+	color: #fff;
+	border-bottom: 0px solid #fff;
+	margin-left: 30px;
+	right: 70px;
+	font-size: 9pt;
+	font-weight: 400;
+	text-transform: uppercase;
+	-webkit-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;	
+}
+
+.ui-header-menu:hover{
+	height: 57px;
+	border-bottom: 3px solid #fff;
+}
+
+.ui-header-logout{
+	height: 30px;
+	line-height: 31px;
+	color: #ff5d63;
+	border: 2px solid #ff5d63;
+	width: 90px;
+	top: 23px;
+	border-radius: 20px;
+}
+
+.ui-header-logout:hover{
+	background-color: #ff5d63;
+	color: #fff;
 }
 
 .ui-dis{
@@ -62,7 +99,7 @@ header{
 	width: 100%;
 	left: 0px;
 	top: 0px;
-	background-color: rgba(26, 34, 47, 0.4);
+	background-color: rgba(8, 21, 51, 0.4);
 }
 
 .ui-page-head, .ui-page-desc{
@@ -74,7 +111,7 @@ header{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	left: 14%;
-	top: 115px;
+	top: 100px;
 	height: 80px;
 	font-weight: 200;
 	font-size: 40px;
@@ -99,9 +136,9 @@ header{
 .ui-page-content{
 	position: relative;
 	margin: auto;
-	margin-top: 260px;
+	margin-top: 210px;
 	width: 70%;
-	min-width: 500px;	
+	min-width: 500px;
 	margin-bottom: 80px;
 	padding-top: 60px;
 	padding-bottom: 35px;

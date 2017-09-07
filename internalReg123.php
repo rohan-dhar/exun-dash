@@ -5,6 +5,7 @@
 	$styles = ["css/int.css"];
 	$scripts = ["js/int.js"];
 	$title = APP;
+	$loggedIn = false;
 
 	if(@$_GET["pass"] != "pass_123"){
 		header("Location: index.php");

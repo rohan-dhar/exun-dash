@@ -5,6 +5,7 @@
 
 	$s = new School;
 	$s->startSess();
+	$loggedIn = true;
 
 	$det = $s->authSess();
 
@@ -12,6 +13,7 @@
 		header("Location: index.php");
 		exit();
 	}
+
 
 	$det = $det[1];
 	$part = $s->getParticipants();

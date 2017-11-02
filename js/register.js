@@ -42,12 +42,14 @@ $(document).ready(function(){
 		
 		var ret = [];
 
-		for(i in events){
+		for(var i in events){
 			if( $("#reg-add-student-event-"+i).prop("checked") ){
-				if(events[i].classes[0] <= std && events[i].classes[1] >= std){
-					ret.push(i);	
+				if(events[i].classes[0] > std && events[i].classes[1] < std){
+					return [false, "INC_CLASS"];
+				}else if(events[i].participantCount <= getEventNum(i)){
+					return [false, "FULL"];
 				}else{
-					return false;
+					ret.push(i);	
 				}
 			}
 		}
@@ -156,13 +158,22 @@ $(document).ready(function(){
 			});				
 			return false;			
 		}
-		if(!event){
-			swal({
-				title: "The student was not added!",
-				text: "Invalid student events provided. Refresh and try again.",
-				type: "error",
-			});				
-			return false;			
+		if(!event[0]){
+			if(event[1] == "FULL"){
+				swal({
+					title: "The student was not added!",
+					text: "Maximum number of students have been added for given events.",
+					type: "error",
+				});				
+				return false;			
+			}else{
+				swal({
+					title: "The student was not added!",
+					text: "Invalid student events provided. Refresh and try again.",
+					type: "error",
+				});				
+				return false;							
+			}
 		}
 
 
@@ -268,8 +279,8 @@ $(document).ready(function(){
 			success: function(d){					
 				if(d[0]){
 					swal({
-						title: "Success!",
-						html: "You have been registered successfully. You can click <a href='login.php'>here</a> to login and access your dashboard.",
+						title: "You have been registered!",
+						html: "You can click <a href='login.php'>here</a> to login and access your dashboard.<br>You have to use the teacher's email and <h3>"+ d[2] +"</h3> as the password.<br>If you lose the password or need any assistance, you can contact us at <a href='mailto:exunclan@gmail.com'>exunclan@gmail.com</a> <h3>",
 						type: "success",
 					}).then(function(){
 						location.reload();

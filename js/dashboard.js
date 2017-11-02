@@ -144,6 +144,9 @@ $(document).ready(function(){
 						html: "The participant was added successfully.",
 						type: "success",
 					});
+					$("#add-participant-name, #add-participant-email").val("");
+					$('#add-participant-event, #add-participant-class').prop('selectedIndex', 0);
+					$("#add-participant-class").html('<option selected disabled value="Participant Class">Participant Class</option>');		
 					part = d[1];
 					setTableData();
 				}else if(d[1] == "LOGOUT"){

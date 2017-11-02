@@ -1,12 +1,12 @@
 *{
 	padding: 0px;
 	margin: 0px;
-	/*background-color: transparent;*/
+	background-color: transparent;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
 	outline: none;
-	font-family: montserrat;
+	font-family: montserrat, avenir next, segoe ui, roboto, sans-serif;
 }
 
 a{

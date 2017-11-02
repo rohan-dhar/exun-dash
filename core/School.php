@@ -68,14 +68,21 @@
 				}
 			}
 
+			$pass = "";
+			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$charsLen = strlen($chars);
+			for($i = 0; $i < 7; $i++){
+				$pass .= $chars[rand(0, $charsLen - 1)];
+			}
 
-			$qry = $db->prepare("INSERT INTO schools (name, principalName, teacherName, teacherEmail, teacherPhone) VALUES(:name, :principal, :teacher, :teacherEmail, :teacherPhone)");
+			$qry = $db->prepare("INSERT INTO schools (name, principalName, teacherName, teacherEmail, teacherPhone, password) VALUES(:name, :principal, :teacher, :teacherEmail, :teacherPhone, :pass)");
 			$qry->execute([
 				":name" => $name,
 				":principal" => $principal,
 				":teacher" => $teacher,
 				":teacherEmail" => $teacherEmail,
-				":teacherPhone" => $teacherPhone,				
+				":teacherPhone" => $teacherPhone,			
+				":pass"	 => $pass
 			]);
 			$schoolId = $db->lastInsertId();
 
@@ -105,7 +112,7 @@
 				$qry->execute($pSqlVars);
 			
 			}			
-			return [true, $schoolId];
+			return [true, $schoolId, $pass];
 		}
 
 		public function startSess($login = false){

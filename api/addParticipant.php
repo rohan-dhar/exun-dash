@@ -1,5 +1,4 @@
 <?php 
-
 	require '../core/config.php';
 	require '../core/School.php';
 	$s = new School;
@@ -11,5 +10,4 @@
 	}
 	
 	exit(json_encode( $s->addParticipant(@$_POST["name"], @$_POST["email"], @$_POST["class"], @$_POST["event"]) ));
-
 ?>

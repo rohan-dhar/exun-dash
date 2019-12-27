@@ -1,3 +1,5 @@
 <h1>Exun 2017 Registration</h1><br>
-Reg system in PHP for Exun 2017 regs. <br>
-To be shared ONLY with members authorized by the senior members.
+Registration system for Exun 2017<br>
+
+Developed on the LAMP/MAMP stack. Setup PHP and MySQL on Apache to run.
+
